@@ -1,7 +1,5 @@
+import Login from "./pages/Login";
+
 export default function App() {
-  return (
-    <div className="flex min-h-screen items-center justify-center text-4xl font-bold">
-      GrandCaddy 🚀
-    </div>
-  );
+  return <Login />;
 }
