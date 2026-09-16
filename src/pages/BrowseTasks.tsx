@@ -1,6 +1,6 @@
-// src/App.tsx
+// src/pages/BrowseTasks.tsx
 import { useEffect, useState } from 'react'
-import { supabase } from './lib/supabaseClient'
+import { supabase } from '../lib/supabaseClient'
 
 type Task = {
   id: number
@@ -8,11 +8,11 @@ type Task = {
   suburb: string
   status: string
   offered_amount: number
-  task_categories: { name: string }[] | null   // ← array
-  users: { full_name: string }[] | null         // ← array
+  task_categories: { name: string }[] | null
+  users: { full_name: string }[] | null
 }
 
-function App() {
+export default function BrowseTasks() {
   const [tasks, setTasks] = useState<Task[]>([])
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
@@ -20,17 +20,17 @@ function App() {
   useEffect(() => {
     async function fetchTasks() {
       const { data, error } = await supabase
-  .from('tasks')
-  .select(`
-    id,
-    title,
-    suburb,
-    status,
-    offered_amount,
-    task_categories:category_id ( name ),
-    users:customer_id ( full_name )
-  `)
-  .order('created_at', { ascending: false })
+        .from('tasks')
+        .select(`
+          id,
+          title,
+          suburb,
+          status,
+          offered_amount,
+          task_categories:category_id ( name ),
+          users:customer_id ( full_name )
+        `)
+        .order('created_at', { ascending: false })
 
       if (error) setError(error.message)
       else setTasks((data ?? []) as unknown as Task[])
@@ -90,5 +90,3 @@ function App() {
     </div>
   )
 }
-
-export default App

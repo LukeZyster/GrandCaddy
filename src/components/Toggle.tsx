@@ -1,30 +1,36 @@
-import { useState } from "react";
+// src/components/Toggle.tsx
+import type { Role } from "../lib/auth";
 
-export default function Toggle() {
-  const [selected, setSelected] = useState<"senior" | "caddy">("senior");
+type ToggleProps = {
+  value: Role;
+  onChange: (role: Role) => void;
+};
 
+export default function Toggle({ value, onChange }: ToggleProps) {
   return (
-    <div className="flex w-full rounded-full bg-[#EEF0F8] p-1">
+    <div className="grid grid-cols-2 gap-2 rounded-2xl bg-gray-100 p-1">
       <button
-        onClick={() => setSelected("senior")}
-        className={`flex-1 rounded-full py-3 text-sm font-semibold transition ${
-          selected === "senior"
-            ? "bg-white text-[#0B5FFF] shadow"
-            : "text-gray-500"
-        }`}
+        type="button"
+        onClick={() => onChange("customer")}
+        className={
+          value === "customer"
+            ? "rounded-xl bg-white py-3 font-semibold shadow"
+            : "rounded-xl py-3 text-gray-500"
+        }
       >
-        Senior / Family
+        Customer
       </button>
 
       <button
-        onClick={() => setSelected("caddy")}
-        className={`flex-1 rounded-full py-3 text-sm font-semibold transition ${
-          selected === "caddy"
-            ? "bg-white text-[#0B5FFF] shadow"
-            : "text-gray-500"
-        }`}
+        type="button"
+        onClick={() => onChange("helper")}
+        className={
+          value === "helper"
+            ? "rounded-xl bg-white py-3 font-semibold shadow"
+            : "rounded-xl py-3 text-gray-500"
+        }
       >
-        Caddy
+        Helper
       </button>
     </div>
   );
