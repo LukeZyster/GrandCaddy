@@ -9,11 +9,33 @@ import PasswordInput from "../components/PasswordInput";
 import Button from "../components/Button";
 
 export default function SignUp() {
-
   const [fullName, setFullName] = useState("");
-const [email, setEmail] = useState("");
-const [password, setPassword] = useState("");
-const [confirmPassword, setConfirmPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const handleSubmit = () => {
+    setError("");
+
+    if (!fullName || !email || !password || !confirmPassword) {
+      setError("Please fill in all fields.");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setError("Passwords do not match.");
+      return;
+    }
+
+    console.log({
+      fullName,
+      email,
+      password,
+    });
+
+    alert("Account created successfully! 🎉");
+  };
 
   return (
     <main className="min-h-screen bg-[#F8F9FC]">
@@ -32,7 +54,6 @@ const [confirmPassword, setConfirmPassword] = useState("");
           <div className="w-full max-w-md space-y-8">
 
             <div>
-
               <h1 className="text-4xl font-bold">
                 Create Your Account
               </h1>
@@ -40,52 +61,60 @@ const [confirmPassword, setConfirmPassword] = useState("");
               <p className="mt-2 text-gray-500">
                 Join GrandCaddy and start connecting today.
               </p>
-
             </div>
 
             <Toggle />
 
             <Input
-  label="Full Name"
-  placeholder="Enter your full name"
-  icon={User}
-  value={fullName}
-  onChange={(e) => setFullName(e.target.value)}
-/>
+              label="Full Name"
+              placeholder="Enter your full name"
+              icon={User}
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
+            />
 
-<Input
-  label="Email Address"
-  placeholder="Enter your email"
-  icon={Mail}
-  value={email}
-  onChange={(e) => setEmail(e.target.value)}
-/>
+            <Input
+              label="Email Address"
+              placeholder="Enter your email"
+              icon={Mail}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
 
-<PasswordInput
-  label="Password"
-  placeholder="Create a password"
-  value={password}
-  onChange={(e) => setPassword(e.target.value)}
-/>
+            <PasswordInput
+              label="Password"
+              placeholder="Create a password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
 
-<PasswordInput
-  label="Confirm Password"
-  placeholder="Confirm your password"
-  value={confirmPassword}
-  onChange={(e) => setConfirmPassword(e.target.value)}
-/>
-            <Button>
+            <PasswordInput
+              label="Confirm Password"
+              placeholder="Confirm your password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+
+            {error && (
+              <div className="rounded-xl border border-red-200 bg-red-100 p-4">
+                <p className="text-sm text-red-600">
+                  {error}
+                </p>
+              </div>
+            )}
+
+            <Button onClick={handleSubmit}>
               Create Account →
             </Button>
 
             <p className="text-center text-gray-500">
               Already have an account?{" "}
               <Link
-  to="/login"
-  className="font-semibold text-[#0B5FFF]"
->
-  Sign In
-</Link>
+                to="/login"
+                className="font-semibold text-[#0B5FFF] hover:underline"
+              >
+                Sign In
+              </Link>
             </p>
 
           </div>
