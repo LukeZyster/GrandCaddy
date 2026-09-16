@@ -18,7 +18,7 @@ export default function Toggle({ value, onChange }: ToggleProps) {
             : "rounded-xl py-3 text-gray-500"
         }
       >
-        Customer
+        Senior / Family
       </button>
 
       <button
@@ -30,7 +30,7 @@ export default function Toggle({ value, onChange }: ToggleProps) {
             : "rounded-xl py-3 text-gray-500"
         }
       >
-        Helper
+        Caddy
       </button>
     </div>
   );
